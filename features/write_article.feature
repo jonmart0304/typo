@@ -17,3 +17,14 @@ Feature: Write Articles
     Then I should see "Foobar"
     When I follow "Foobar"
     Then I should see "Lorem Ipsum"
+    
+  Scenario: Successfully create and edit categories
+    Given I am on the admin page
+    When I follow "Categories"
+    Then I should be on the admin categories page
+    When I press "Save"
+    Then I should see "Category could not be saved."
+    When I fill in "Name" with "Fruit"
+    And I press "Save"
+    Then I should see "Category was successfully saved."
+    

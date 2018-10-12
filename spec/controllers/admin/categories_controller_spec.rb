@@ -62,5 +62,34 @@ describe Admin::CategoriesController do
 
     assert_raise(ActiveRecord::RecordNotFound) { Category.find(test_id) }
   end
+
+  ### Rspec tests added by me
+  
+  it "test if the categories link handles a nil valued id properly" do
+    get :index, :id => nil
+    response.should redirect_to '/admin/categories/new'
+  end
+
+  it "test if the edit button works properly" do
+    test_id = Factory(:category).id
+    get :edit, :id => test_id
+    expect(response.status).to eq(200)
+  end
+  
+  it "test if the edit button works properly for nil values" do
+    get :edit, :id => nil
+    expect(response.status).to eq(200)
+  end
+  
+  it "test if the edit button works properly for name text box" do
+    test_name = Factory(:category).name
+    get :edit, :category => {:name => test_name}
+    expect(response.status).to eq(200)
+  end
+  
+  it "test if the edit button works properly for empty name text box" do
+    get :edit, :category => {:name => nil}
+    expect(response.status).to eq(200)
+  end
   
 end
